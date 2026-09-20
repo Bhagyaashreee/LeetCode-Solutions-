@@ -1,23 +1,45 @@
-// Problem: Two Sum
-// Difficulty: Easy
-// Approach: Brute Force
-// Time Complexity: O(n²)
-// Space Complexity: O(1)
+class ListNode {
+    int val;
+    ListNode next;
 
-class Solution {
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
 
-    public int[] twoSum(int[] nums, int target) {
+class AddTwoNumbers {
 
-        for (int i = 0; i < nums.length; i++) {
+    static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-            for (int j = i + 1; j < nums.length; j++) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int carry = 0;
 
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
+        while (l1 != null || l2 != null || carry != 0) {
+
+            int x = 0;
+            int y = 0;
+
+            if (l1 != null) {
+                x = l1.val;
+                l1 = l1.next;
             }
+
+            if (l2 != null) {
+                y = l2.val;
+                l2 = l2.next;
+            }
+
+            int sum = x + y + carry;
+
+            int digit = sum % 10;
+            carry = sum / 10;
+
+            current.next = new ListNode(digit);
+            current = current.next;
         }
 
-        return new int[]{};
+        return dummy.next;
     }
 }
